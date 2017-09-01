@@ -30,6 +30,10 @@ public class UConectar {
 		try {
 			
 			if(con == null){
+				
+				//determina cuando finaliza el programa 
+				Runtime.getRuntime().addShutdownHook(new CerrarConexion());
+				
 				//carga el archivo de configuracion de la bd 
 				ResourceBundle rb = ResourceBundle.getBundle(BD_CONF_RUTA);
 				
