@@ -1,4 +1,4 @@
-package backend;
+package backend.conexion;
 
 import java.sql.Connection;
 

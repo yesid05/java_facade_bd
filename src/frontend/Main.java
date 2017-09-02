@@ -4,31 +4,40 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
-import backend.UConectar;
+import backend.conexion.UConectar;
+import backend.dao.DepartamentoDAO;
+import backend.dao.EmpleadoDAO;
+import backend.dto.DepartamentoDTO;
+import backend.dto.EmpleadoDTO;
 
 public class Main {
 
 	public static void main(String[] args) {
-		PreparedStatement pst = null;
-		Connection con = null;
-		ResultSet rs = null;
-		UConectar conexion = new UConectar();
-		con = conexion.darConexion();
 		
-		String sql = "select * from departamento";
+		DepartamentoDAO depDAO = new DepartamentoDAO();
 		
-		try {
-			pst = con.prepareStatement(sql);
-			rs = pst.executeQuery();
+		Collection<DepartamentoDTO> coll = depDAO.buscarTodosDepartamentos();
+		
+		for(DepartamentoDTO dto:coll){
 			
-			while (rs.next()) {
-				System.out.println("Nombre: "+rs.getString("nombre"));
-				System.out.println("Local: "+rs.getString("loc"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Id: "+dto.getId());
+			System.out.println("Locación: "+dto.getLoc());
+			System.out.println("Nombre: "+dto.getNombre());
+		}
+		
+		EmpleadoDAO emDAO = new EmpleadoDAO();
+		
+		Collection<EmpleadoDTO> colemp = emDAO.buscarTodosEmpleados();
+		
+		for(EmpleadoDTO emDTO:colemp){
+			
+			System.out.println("id: "+ emDTO.getId());
+			System.out.println("Nombre: "+emDTO.getNombre());
+			System.out.println("Apeliido: "+emDTO.getApellido());
+			System.out.println("Direccion: "+emDTO.getDireccion());
+			
 		}
 
 	}

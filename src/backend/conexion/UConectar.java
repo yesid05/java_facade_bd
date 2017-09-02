@@ -1,4 +1,4 @@
-package backend;
+package backend.conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 public class UConectar {
 	
 	//Constante para la ruta del archivo de configuracion
-	public static String BD_CONF_RUTA = "backend.conf";
+	public static String BD_CONF_RUTA = "backend.conexion.conf";
 	
 	//Constante para el usuario bd
 	public static String BD_USR = "usr";

@@ -1,4 +1,4 @@
-package backend;
+package backend.dto;
 
 public class DepartamentoDTO {
 	// =====================
@@ -32,7 +32,7 @@ public class DepartamentoDTO {
 	}
 
 	// =====================
-	// Atributos de la bd
+	// Metodos de la clase 
 	// =====================
 	/**
 	 * Retorna el id del departamento
