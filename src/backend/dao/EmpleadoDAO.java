@@ -31,9 +31,13 @@ public class EmpleadoDAO {
 	private ResultSet rs = null;
 
 	// ==================
-	// Atributos
+	// Metodos
 	// ==================
 
+	/**
+	 * Metodo que retorna todos los empleados
+	 * @return ret de tipo <b>Vector</b>
+	 */
 	public Collection<EmpleadoDTO> buscarTodosEmpleados() {
 		try {
 			// establece la conexion

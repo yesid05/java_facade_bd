@@ -11,35 +11,30 @@ import backend.dao.DepartamentoDAO;
 import backend.dao.EmpleadoDAO;
 import backend.dto.DepartamentoDTO;
 import backend.dto.EmpleadoDTO;
+import backend.facade.Facade;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		DepartamentoDAO depDAO = new DepartamentoDAO();
+		Facade facade = new Facade();
+		Collection<DepartamentoDTO> listaDepDTO = facade.buscarTodosDepartamentos();
 		
-		Collection<DepartamentoDTO> coll = depDAO.buscarTodosDepartamentos();
-		
-		for(DepartamentoDTO dto:coll){
-			
-			System.out.println("Id: "+dto.getId());
-			System.out.println("Locación: "+dto.getLoc());
-			System.out.println("Nombre: "+dto.getNombre());
+		for(DepartamentoDTO depDTO:listaDepDTO){
+			System.out.println("id: "+depDTO.getId());
+			System.out.println("Nombre: "+depDTO.getNombre());
+			System.out.println("Locación: "+depDTO.getLoc());
 		}
 		
-		EmpleadoDAO emDAO = new EmpleadoDAO();
+		Collection<EmpleadoDTO> listaEmpDTO = facade.buscarTodosEmpleados();
 		
-		Collection<EmpleadoDTO> colemp = emDAO.buscarTodosEmpleados();
-		
-		for(EmpleadoDTO emDTO:colemp){
-			
-			System.out.println("id: "+ emDTO.getId());
-			System.out.println("Nombre: "+emDTO.getNombre());
-			System.out.println("Apeliido: "+emDTO.getApellido());
-			System.out.println("Direccion: "+emDTO.getDireccion());
-			
+		for(EmpleadoDTO empDTO:listaEmpDTO){
+			System.out.println("id: "+empDTO.getId());
+			System.out.println("nombre: "+empDTO.getNombre());
+			System.out.println("apellido: "+empDTO.getApellido());
+			System.out.println("dirección: "+empDTO.getDireccion());
 		}
-
+		
 	}
 
 }
