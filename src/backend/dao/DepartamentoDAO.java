@@ -3,6 +3,8 @@ package backend.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 import java.util.Collection;
 import java.util.Vector;
 
@@ -90,6 +92,64 @@ public class DepartamentoDAO {
 				throw new RuntimeException(e2);
 			}
 		}
+	}
+
+	/**
+	 * Metodo para insertar un departamento
+	 * 
+	 * @param unDepDTO
+	 *            departamento que se desea insertar
+	 * @return <b>0</b> Si no se pudo insertar, <b>1</b> Si se pudo insertar
+	 * @throws SQLException
+	 *             Si ocurre un error al acceder a la base de datos
+	 * @throws SQLTimeoutException
+	 *             Cuando el tiempo de espera se ha superado
+	 */
+	public int insertarDepartamento(DepartamentoDTO unDepDTO) throws SQLException, SQLTimeoutException {
+		// respuesta por defecto 0 filas afectadas
+		int respuesta = 0;
+		try {
+			// establece la conexion
+			conexion = UConectar.darConexion();
+			// define un query
+			String sql = "";
+			sql += "insert into " + BD_TABLA + " (" + BD_NOMBRE + ", " + BD_LOC + ") ";
+			sql += "values(?,?)";
+
+			// prepara el query a ejecutar
+			pstm = conexion.prepareStatement(sql);
+
+			// seteamos los valores de los parametros
+			pstm.setString(1, unDepDTO.getNombre());
+			pstm.setString(2, unDepDTO.getLoc());
+
+			// ejecuta el query y guarda el resultado de filas afectadas en
+			// respuesta
+			respuesta = pstm.executeUpdate();
+
+			// retorna la respuesta
+			return respuesta;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		finally {
+			try {
+				// cierra todos los recursos en orden inverso en que fueron
+				// adquiridos
+				if (rs != null)
+					rs.close();
+
+				if (pstm != null)
+					pstm.close();
+			} catch (Exception e2) {
+
+				e2.printStackTrace();
+				throw new RuntimeException(e2);
+			}
+		}
+
 	}
 
 }

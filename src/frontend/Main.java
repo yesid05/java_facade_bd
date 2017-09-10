@@ -18,6 +18,25 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Facade facade = new Facade();
+		
+		DepartamentoDTO unDepDTO = new DepartamentoDTO();
+		unDepDTO.setNombre("Pasteleria");
+		unDepDTO.setLoc("Neiva");
+		
+		EmpleadoDTO unEmplDTO = new EmpleadoDTO();
+		unEmplDTO.setNombre("yesid");
+		unEmplDTO.setApellido("caicedo añazco");
+		unEmplDTO.setDireccion("calle 25n 5a 26");
+		
+		
+		try {
+			facade.insertarDepartamento(unDepDTO);
+			facade.insertarEmpleado(unEmplDTO);
+		} catch (SQLException e) {
+			System.out.println("error en la bd");
+			e.printStackTrace();
+		}
+		
 		Collection<DepartamentoDTO> listaDepDTO = facade.buscarTodosDepartamentos();
 		
 		for(DepartamentoDTO depDTO:listaDepDTO){
@@ -25,6 +44,8 @@ public class Main {
 			System.out.println("Nombre: "+depDTO.getNombre());
 			System.out.println("Locación: "+depDTO.getLoc());
 		}
+		
+		
 		
 		Collection<EmpleadoDTO> listaEmpDTO = facade.buscarTodosEmpleados();
 		
