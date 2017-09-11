@@ -39,7 +39,22 @@ public class Facade {
 	public void insertarDepartamento(DepartamentoDTO unDepDTO) throws SQLException, SQLTimeoutException {
 		depDAO.insertarDepartamento(unDepDTO);
 	}
-	
+
+	/**
+	 * Metodo para modificar un departamento
+	 * 
+	 * @param unDepDTO
+	 *            depatamento que se desea modificar
+	 * @return <b>0</b> Si no se pudo modificar, <b>1</b> Si se pudo modificar
+	 * @throws SQLException
+	 *             Si ocurre un error al acceder a la base de datos
+	 * @throws SQLTimeoutException
+	 *             Cuando el tiempo de espera se ha superado
+	 */
+	public void modificarDepartamento(DepartamentoDTO unDepDTO) throws SQLException, SQLTimeoutException {
+		depDAO.modificarDepartamento(unDepDTO);
+	}
+
 	/**
 	 * Metodo que retorna todos los departamentos
 	 * 
@@ -49,9 +64,23 @@ public class Facade {
 		return depDAO.buscarTodosDepartamentos();
 	}
 	
-	
-	public void insertarEmpleado(EmpleadoDTO unEmpDTO) throws SQLTimeoutException, SQLException{
+	/**
+	 * Metodo para insertar un empleado
+	 * 
+	 * @param unEmplDTO
+	 *            empleado que se desea insertar
+	 * @return <b>0</b> Si no se pudo insertar, <b>1</b> Si se pudo insertar
+	 * @throws SQLException
+	 *             Si ocurre un error al acceder a la base de datos
+	 * @throws SQLTimeoutException
+	 *             Cuando el tiempo de espera se ha superado
+	 */
+	public void insertarEmpleado(EmpleadoDTO unEmpDTO) throws SQLTimeoutException, SQLException {
 		emDAO.insertarEmpleado(unEmpDTO);
+	}
+	
+	public void modificarEmpleado(EmpleadoDTO unEmplDTO)throws SQLException,SQLTimeoutException{
+		emDAO.modificarEmpleado(unEmplDTO);
 	}
 	/**
 	 * Metodo que retorna todos los empleados
@@ -60,6 +89,6 @@ public class Facade {
 	 */
 	public Collection<EmpleadoDTO> buscarTodosEmpleados() {
 		return emDAO.buscarTodosEmpleados();
-	}	
+	}
 
 }

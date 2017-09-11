@@ -16,19 +16,18 @@ import backend.facade.Facade;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
 		Facade facade = new Facade();
-		
+
 		DepartamentoDTO unDepDTO = new DepartamentoDTO();
 		unDepDTO.setNombre("Pasteleria");
 		unDepDTO.setLoc("Neiva");
-		
+
 		EmpleadoDTO unEmplDTO = new EmpleadoDTO();
 		unEmplDTO.setNombre("yesid");
 		unEmplDTO.setApellido("caicedo añazco");
 		unEmplDTO.setDireccion("calle 25n 5a 26");
-		
-		
+
 		try {
 			facade.insertarDepartamento(unDepDTO);
 			facade.insertarEmpleado(unEmplDTO);
@@ -36,26 +35,46 @@ public class Main {
 			System.out.println("error en la bd");
 			e.printStackTrace();
 		}
-		
+
+		// ======================================
+		// actualizar
+		// ======================================
+		unDepDTO = new DepartamentoDTO();
+		unDepDTO.setId(2);
+		unDepDTO.setNombre("Comida");
+		unDepDTO.setLoc("Cali");
+
+		unEmplDTO = new EmpleadoDTO();
+		unEmplDTO.setId(1);
+		unEmplDTO.setNombre("Pepito");
+		unEmplDTO.setApellido("Perez Perez");
+		unEmplDTO.setDireccion("Crr 6 21n 5");
+
+		try {
+			facade.modificarDepartamento(unDepDTO);
+			facade.modificarEmpleado(unEmplDTO);
+		} catch (SQLException e) {
+			System.out.println("error en la bd");
+			e.printStackTrace();
+		}
+
 		Collection<DepartamentoDTO> listaDepDTO = facade.buscarTodosDepartamentos();
-		
-		for(DepartamentoDTO depDTO:listaDepDTO){
-			System.out.println("id: "+depDTO.getId());
-			System.out.println("Nombre: "+depDTO.getNombre());
-			System.out.println("Locación: "+depDTO.getLoc());
+
+		for (DepartamentoDTO depDTO : listaDepDTO) {
+			System.out.println("id: " + depDTO.getId());
+			System.out.println("Nombre: " + depDTO.getNombre());
+			System.out.println("Locación: " + depDTO.getLoc());
 		}
-		
-		
-		
+
 		Collection<EmpleadoDTO> listaEmpDTO = facade.buscarTodosEmpleados();
-		
-		for(EmpleadoDTO empDTO:listaEmpDTO){
-			System.out.println("id: "+empDTO.getId());
-			System.out.println("nombre: "+empDTO.getNombre());
-			System.out.println("apellido: "+empDTO.getApellido());
-			System.out.println("dirección: "+empDTO.getDireccion());
+
+		for (EmpleadoDTO empDTO : listaEmpDTO) {
+			System.out.println("id: " + empDTO.getId());
+			System.out.println("nombre: " + empDTO.getNombre());
+			System.out.println("apellido: " + empDTO.getApellido());
+			System.out.println("dirección: " + empDTO.getDireccion());
 		}
-		
+
 	}
 
 }

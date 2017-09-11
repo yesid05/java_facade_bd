@@ -152,4 +152,63 @@ public class DepartamentoDAO {
 
 	}
 
+	/**
+	 * Metodo para modificar un departamento
+	 * 
+	 * @param unDepDTO
+	 *            depatamento que se desea modificar
+	 * @return <b>0</b> Si no se pudo modificar, <b>1</b> Si se pudo modificar
+	 * @throws SQLException
+	 *             Si ocurre un error al acceder a la base de datos
+	 * @throws SQLTimeoutException
+	 *             Cuando el tiempo de espera se ha superado
+	 */
+	public int modificarDepartamento(DepartamentoDTO unDepDTO) throws SQLException, SQLTimeoutException {
+		// respuesta por defecto 0 filas afectadas
+		int respuesta = 0;
+		try {
+			// establece la conexion
+			conexion = UConectar.darConexion();
+			// define un query
+			String sql = "";
+			sql += "update " + BD_TABLA + " ";
+			sql += "set " + BD_NOMBRE + "  = ?, " + BD_LOC + " = ? ";
+			sql += "where " + BD_ID + " = " + unDepDTO.getId();
+
+			// prepara el query a ejecutar
+			pstm = conexion.prepareStatement(sql);
+
+			// seteamos los valores de los parametros
+			pstm.setString(1, unDepDTO.getNombre());
+			pstm.setString(2, unDepDTO.getLoc());
+
+			// ejecuta el query y guarda el resultado de filas afectadas en
+			// respuesta
+			respuesta = pstm.executeUpdate();
+
+			// retorna la respuesta
+			return respuesta;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		finally {
+			try {
+				// cierra todos los recursos en orden inverso en que fueron
+				// adquiridos
+				if (rs != null)
+					rs.close();
+
+				if (pstm != null)
+					pstm.close();
+			} catch (Exception e2) {
+
+				e2.printStackTrace();
+				throw new RuntimeException(e2);
+			}
+		}
+
+	}
+
 }

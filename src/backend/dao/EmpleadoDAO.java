@@ -157,4 +157,44 @@ public class EmpleadoDAO {
 		}
 
 	}
+	
+	public int modificarEmpleado(EmpleadoDTO unEmplDTO)throws SQLException, SQLTimeoutException{
+		int respuesta = 0;
+		try {
+			conexion = UConectar.darConexion();
+			String sql = "";
+			sql += "update "+BD_TABLA+" ";
+			sql += "set "+BD_NOMBRE+" = ?, "+BD_APELLIDO+" = ?, "+BD_DIRECCION+" = ? ";
+			sql += "where "+BD_ID+" = "+unEmplDTO.getId();
+			
+			pstm = conexion.prepareStatement(sql);
+			
+			pstm.setString(1, unEmplDTO.getNombre());
+			pstm.setString(2, unEmplDTO.getApellido());
+			pstm.setString(3, unEmplDTO.getDireccion());
+			
+			respuesta = pstm.executeUpdate();
+			
+			return respuesta;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		finally {
+			try {
+				// cierra todos los recursos en orden inverso en que fueron
+				// adquiridos
+				if (rs != null)
+					rs.close();
+
+				if (pstm != null)
+					pstm.close();
+			} catch (Exception e2) {
+
+				e2.printStackTrace();
+				throw new RuntimeException(e2);
+			}
+		}
+	}
 }
