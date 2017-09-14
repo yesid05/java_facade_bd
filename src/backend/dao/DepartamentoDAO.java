@@ -211,4 +211,67 @@ public class DepartamentoDAO {
 
 	}
 
+	/**
+	 * Metodo para eliminar un departamento
+	 * 
+	 * @param unDepDTO
+	 *            departamento que se desea eliminar
+	 * @return <b>0</b> Si no se pudo eliminar, <b>1</b> Si se pudo eliminar.
+	 * @throws SQLException
+	 *             Si ocurre un error al acceder a la base de datos.
+	 * @throws SQLTimeoutException
+	 *             Cuando el tiempo de espera se ha superado.
+	 */
+	public int eliminarDepartamento(DepartamentoDTO unDepDTO) throws SQLException, SQLTimeoutException {
+		// respuesta por defecto 0 filas afectadas
+		int respuesta = 0;
+		try {
+			// establece la conexion
+			conexion = UConectar.darConexion();
+			// define un query
+			String sql = "";
+			sql += "delete from " + BD_TABLA + " ";
+			sql += "where " + BD_NOMBRE + " = ? ";
+
+			// prepara el query a ejecutar
+			pstm = conexion.prepareStatement(sql);
+
+			// seteamos los valores de los parametros
+			pstm.setString(1, unDepDTO.getNombre());
+
+			// ejecuta el query y guarda el resultado de filas afectadas en
+			// respuesta
+			respuesta = pstm.executeUpdate();
+
+			// el autocommit es true por eso no es necesario
+			// if (respuesta >= 1) {
+			// conexion.commit();
+			// } else {
+			// throw new RuntimeException("Error...");
+			// }
+
+			// retorna la respuesta
+			return respuesta;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		finally {
+			try {
+				// cierra todos los recursos en orden inverso en que fueron
+				// adquiridos
+				if (rs != null)
+					rs.close();
+
+				if (pstm != null)
+					pstm.close();
+			} catch (Exception e2) {
+
+				e2.printStackTrace();
+				throw new RuntimeException(e2);
+			}
+		}
+	}
+
 }

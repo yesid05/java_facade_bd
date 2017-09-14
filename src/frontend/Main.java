@@ -49,10 +49,23 @@ public class Main {
 		unEmplDTO.setNombre("Pepito");
 		unEmplDTO.setApellido("Perez Perez");
 		unEmplDTO.setDireccion("Crr 6 21n 5");
+		/*
+		 * try { //facade.modificarDepartamento(unDepDTO);
+		 * //facade.modificarEmpleado(unEmplDTO); } catch (SQLException e) {
+		 * System.out.println("error en la bd"); e.printStackTrace(); }
+		 */
+		// ======================================
+		// Eliminar
+		// ======================================
+		unDepDTO = new DepartamentoDTO();
+		unDepDTO.setNombre("Pasteleria");
+
+		unEmplDTO = new EmpleadoDTO();
+		unEmplDTO.setNombre("Yesid");
 
 		try {
-			facade.modificarDepartamento(unDepDTO);
-			facade.modificarEmpleado(unEmplDTO);
+			facade.eliminarDepartamento(unDepDTO);
+			facade.eliminarEmpleado(unEmplDTO);
 		} catch (SQLException e) {
 			System.out.println("error en la bd");
 			e.printStackTrace();
